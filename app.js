@@ -26,6 +26,15 @@ app.get('/', (req, res) => {
 
   res.render('home');
 });
+app.get('/', (req, res) => {
+
+  res.render('admin');
+});
+app.get('/', (req, res) => {
+
+  res.render('confirm');
+});
+
 
 // Start the server and listen on the specified port
 
