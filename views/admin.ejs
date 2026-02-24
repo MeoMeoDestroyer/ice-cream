@@ -29,7 +29,7 @@
         <tbody>
             <% orders.forEach(order => { %>
                 <tr>
-                    <td><%= order.fname %> <%= order.lname %></td>
+                    <td><%= order.name %></td>
                     <td><%= order.email %></td>
                     <td><%= order.flavors.join(', ') %></td>
                     <td><%= order.cone %></td>
@@ -54,6 +54,7 @@
 
       <script defer>
         let table = new DataTable('#order-table');
+        responsive:true
     </script>
 </body>
 </html>
