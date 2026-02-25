@@ -11,17 +11,13 @@ const app = express();
 // Define the port number where our server will listen
 
 const PORT = 3006;
+let orders = []; //empty array
 
 
 // Define a default "route" ('/')
  app.use(express.static('public'));
-<<<<<<< HEAD
  app.use(express.json());
  app.set('view engine','ejs');
-=======
- app.set('view engine', 'ejs');
-app.set('views', './views'); // folder where your .ejs files live
->>>>>>> 12a18b39566fc9f3b5d0173a6144e517cdfd43cb
  app.use(express.urlencoded({extended:true}));
 
 // req: contains information about the incoming request
@@ -29,21 +25,35 @@ app.set('views', './views'); // folder where your .ejs files live
 // res: allows us to send back a response to the client
 
 app.get('/home', (req, res) => {
-
   res.render('home');
 });
-app.get('/admin', (req, res) => {
 
+app.get('/admin', (req, res) => {
   res.render('admin',{order});
 });
+
 app.get('/confirm', (req, res) => {
   res.render('confirm');
 });
-const orders = [];
+
 app.post('/order', (req, res) => {
+const {
+  name,
+  email,
+  size,
+  cone, 
+  comments
+} = req.body;
 
-  const order = req.body;
-
+  const order = {
+    name,
+    email,
+    flavors: [size],
+    cone,
+    toppings: req.body.toppings,
+    comment: comments,
+    timestamp: new Date()
+  }
   orders.push(order);
   res.render('confirm', {order});
 });

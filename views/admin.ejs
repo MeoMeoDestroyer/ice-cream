@@ -43,7 +43,7 @@
     </body>
 
     <% orders.forEach(order => { %>
-       <p><%=order.fname %> <%=order.lname %></p>
+       <p><%=order.name %></p>
         <p><%=order.email %></p>
         <p><%= order.flavors.join(', ') %></p>
         <p><%= order.cone %></p>
