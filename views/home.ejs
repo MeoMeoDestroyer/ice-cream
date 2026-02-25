@@ -10,17 +10,16 @@
 
     <!-- Scripts -->
     <script src="js/ice-cream.js" defer></script>
+
 </head>
 <body>
     <main>
-        <!-- Header -->
         <header>
             <h1>Ice Cream Order Form</h1>
             <img src="img/ice-cream.png" alt="three ice cream cones">
         </header>
 
-        <!-- Form -->
-        <form action="/order" method="POST">
+        <form action="/orders" method="POST">
             <fieldset>
                 <legend>Personal Information</legend>
                 <label for="name">Name:
@@ -34,7 +33,6 @@
                 <input type="email" id="email" name="email">
             </fieldset>
 
-            <!-- Order Details -->
             <fieldset>
                 <legend>Order Details</legend>
 
@@ -73,12 +71,10 @@
                     <input type="checkbox" id="Whipped-Cream" name="toppings[]" value="Whipped-Cream">Whipped Cream
                 </label>
 
-                <!-- Comment -->
                 <label for="comments">Additional Comments:</label>
                 <textarea rows="5" id="comments" name="comments"></textarea>
             </fieldset>
 
-            <!-- Submit -->
             <button type="submit" id="submit-button">Submit Order</button>
         </form>
     </main>

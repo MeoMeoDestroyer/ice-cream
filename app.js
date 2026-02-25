@@ -31,14 +31,14 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-  res.render('admin',{order});
+  res.render('admin',{orders});
 });
 
 app.get('/confirm', (req, res) => {
   res.render('confirm');
 });
 
-app.post('/order', (req, res) => {
+app.post('/orders', (req, res) => {
 const {
   name,
   email,
@@ -48,7 +48,7 @@ const {
 } = req.body;
 
 
-let toppings = req.body.toppings || []; //topping as an array
+let toppings = req.body['toppings[]'] || []; //topping as an array
 
   const order = {
     name,
