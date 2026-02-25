@@ -62,10 +62,8 @@ let toppings = req.body['toppings[]'] || []; //topping as an array
   orders.push(order);
   res.render('confirm', {order});
 });
-// Start the server and listen on the specified port
 
-app.listen(PORT, () => {
-
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 
 });
