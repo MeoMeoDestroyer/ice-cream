@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
 </head>
 <body>
-    <h1> Order Summary</h1>
+    
+    <body>
+    <h1>Order Summary</h1>
     <table id="order-table" class="display">
         <thead>
             <tr>
@@ -40,21 +42,8 @@
             <% }) %>
         </tbody>
     </table>
-    </body>
 
-    <% orders.forEach(order => { %>
-       <p><%=order.name %></p>
-        <p><%=order.email %></p>
-        <p><%= order.flavors.join(', ') %></p>
-        <p><%= order.cone %></p>
-        <p><%= order.toppings.join(', ') %></p>
-        <p><%= order.comment %></p>
-        <p> <%= order.timestamp.toLocaleString() %></p>
-    <% }) %>
-
-      <script defer>
-        let table = new DataTable('#order-table');
-        responsive:true
+    <script>
+        let table = new DataTable('#order-table', { responsive: true }); // fix syntax here too
     </script>
 </body>
-</html>

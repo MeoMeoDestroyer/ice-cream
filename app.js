@@ -20,9 +20,11 @@ let orders = []; //empty array
  app.set('view engine','ejs');
  app.use(express.urlencoded({extended:true}));
 
-// req: contains information about the incoming request
 
-// res: allows us to send back a response to the client
+
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
 
 app.get('/home', (req, res) => {
   res.render('home');
@@ -40,17 +42,20 @@ app.post('/order', (req, res) => {
 const {
   name,
   email,
-  size,
+  flavor,
   cone, 
   comments
 } = req.body;
 
+
+let toppings = req.body.toppings || []; //topping as an array
+
   const order = {
     name,
     email,
-    flavors: [size],
+    flavors: Array.isArray(flavor) ? flavor : [flavor],
     cone,
-    toppings: req.body.toppings,
+    toppings: Array.isArray(toppings) ? toppings : [toppings],
     comment: comments,
     timestamp: new Date()
   }
