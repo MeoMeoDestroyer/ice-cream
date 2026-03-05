@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 
 // Import the express module
 
+const app=express();
+dotenv.config();
+
 import express from 'express';
 
 const pool = mysql2.createPool({
@@ -22,18 +25,15 @@ let orders = []; //empty array
 // Define a default "route" ('/')
  app.use(express.static('public'));
  app.set('view engine', 'ejs');
-app.set('views', './views'); // folder where your .ejs files live
+  app.set('views', './views'); // folder where your .ejs files live
  app.use(express.urlencoded({extended:true}));
-
-
 
 app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-app.get('/', (req, res) => {
-
-  res.render('home');
+app.get('/home', (req, res) => {
+  res.redirect('/home');
 });
 
 app.get('/admin', (req, res) => {
