@@ -1,8 +1,5 @@
 import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
-
-// Import the express module
-
 import express from 'express';
 
 const pool = mysql2.createPool({
