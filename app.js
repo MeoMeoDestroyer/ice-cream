@@ -2,6 +2,10 @@ import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
 import express from 'express';
 
+dotenv.config(); // ← FIX 1: was missing entirely
+
+const app = express(); // ← FIX 2: must be declared BEFORE any app.use/get/post
+
 const pool = mysql2.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -10,58 +14,46 @@ const pool = mysql2.createPool({
   port: process.env.DB_PORT,
 }).promise();
 
-// Define the port number where our server will listen
-
 const PORT = 3006;
-let orders = []; //empty array
+let orders = [];
 
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.set('views', './views');
+app.use(express.urlencoded({ extended: true }));
 
-// Define a default "route" ('/')
- app.use(express.static('public'));
- app.set('view engine', 'ejs');
-app.set('views', './views'); // folder where your .ejs files live
- app.use(express.urlencoded({extended:true}));
-
-
-
+// FIX 3: removed duplicate app.get('/'), kept the redirect
 app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-app.get('/', (req, res) => {
-
+app.get('/home', (req, res) => {
   res.render('home');
 });
 
 app.get('/admin', (req, res) => {
-  res.render('admin',{orders});
+  res.render('admin', { orders });
 });
 
 app.get('/confirm', (req, res) => {
   res.render('confirm');
 });
 
-app.post('/orders', (req, res) => {
-const {
-  name,
-  email,
-  flavor,
-  cone, 
-  comments
-} = req.body;
-
-app.get('/db-test', async(req,res)=>{
-  try{
+// FIX 4: moved app.get('/db-test') OUTSIDE of app.post('/orders')
+app.get('/db-test', async (req, res) => {
+  try {
     const orders = await pool.query('SELECT * FROM orders');
     res.send(orders[0]);
-  }catch (err){
+  } catch (err) {
     console.error('Database error:', err);
     res.status(500).send('Database error: ' + err.message);
   }
 });
 
+app.post('/orders', (req, res) => {
+  const { name, email, flavor, cone, comments } = req.body;
 
-let toppings = req.body['toppings[]'] || []; //topping as an array
+  let toppings = req.body['toppings[]'] || [];
 
   const order = {
     name,
@@ -71,13 +63,12 @@ let toppings = req.body['toppings[]'] || []; //topping as an array
     toppings: Array.isArray(toppings) ? toppings : [toppings],
     comment: comments,
     timestamp: new Date()
-  }
+  };
+
   orders.push(order);
-  res.render('confirm', {order});
+  res.render('confirm', { order });
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
-
