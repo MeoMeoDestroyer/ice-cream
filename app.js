@@ -32,6 +32,7 @@ app.get('/db-test', async (req, res) => {
 // Define the port number where our server will listen
 
 const PORT = 3006;
+let orders = []; //empty array
 
 
 // Define a default "route" ('/')
@@ -40,33 +41,51 @@ const PORT = 3006;
 app.set('views', './views'); // folder where your .ejs files live
  app.use(express.urlencoded({extended:true}));
 
-// req: contains information about the incoming request
 
-// res: allows us to send back a response to the client
+
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
 
 app.get('/', (req, res) => {
 
   res.render('home');
 });
-app.get('/admin', (req, res) => {
 
-  res.render('admin',{order});
+app.get('/admin', (req, res) => {
+  res.render('admin',{orders});
 });
+
 app.get('/confirm', (req, res) => {
   res.render('confirm');
 });
-const orders = [];
-app.post('/order', (req, res) => {
 
-  const order = req.body;
+app.post('/orders', (req, res) => {
+const {
+  name,
+  email,
+  flavor,
+  cone, 
+  comments
+} = req.body;
 
+
+let toppings = req.body['toppings[]'] || []; //topping as an array
+
+  const order = {
+    name,
+    email,
+    flavors: Array.isArray(flavor) ? flavor : [flavor],
+    cone,
+    toppings: Array.isArray(toppings) ? toppings : [toppings],
+    comment: comments,
+    timestamp: new Date()
+  }
   orders.push(order);
   res.render('confirm', {order});
 });
-// Start the server and listen on the specified port
 
-app.listen(PORT, () => {
-
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 
 });

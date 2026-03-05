@@ -61,3 +61,7 @@ input[type="text"], textarea, select{
     color: red;
     display: none;
 }
+h3 {
+    color: green;
+    margin: 0 auto;
+}

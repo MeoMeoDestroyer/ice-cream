@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ice Cream </title>
+    <title>Ice Cream</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="stylesheet/styles.css">
@@ -14,49 +14,39 @@
 </head>
 <body>
     <main>
-        <!-- Header -->
         <header>
             <h1>Ice Cream Order Form</h1>
-            <img src="img/ice-cream.png" alt="three ice cream">
+            <img src="img/ice-cream.png" alt="three ice cream cones">
         </header>
-        <!-- Form -->
-        <form>
-            <!-- Personal Info -->
+
+        <form action="/orders" method="POST">
             <fieldset>
                 <legend>Personal Information</legend>
                 <label for="name">Name:
-                    <span class="err" id="name-err">
-                        First name is required
-                    </span>
+                    <span class="err" id="name-err">First name is required</span>
                 </label>
                 <input type="text" id="name" name="name">
 
-                <label for="name">Email:
-                    <span class="err" id="email-err">
-                        Email is required
-                    </span>
+                <label for="email">Email:
+                    <span class="err" id="email-err">Email is required</span>
                 </label>
-                <input type="text" id="email" name="email">
+                <input type="email" id="email" name="email">
             </fieldset>
-            <!-- Order details -->
+
             <fieldset>
                 <legend>Order Details</legend>
-                
-                <label>Choose your flavor:
-                    <span class="err" id="flavor-err">
-                        Flavor is required
-                    </span>
+
+                <label for="flavor">Choose your flavor:
+                    <span class="err" id="flavor-err">Flavor is required</span>
                 </label>
-                <select name="size" id="size">
-                    <option value="vanila">Vanila</option>
+                <select name="flavor" id="flavor">
+                    <option value="vanilla">Vanilla</option>
                     <option value="strawberry">Strawberry</option>
-                    <option value="choclate">Choclate</option>
+                    <option value="chocolate">Chocolate</option>
                 </select>
 
                 <label>Choose your cone:
-                    <span class="err" id="cone-err">
-                        Cone type is required
-                    </span>
+                    <span class="err" id="cone-err">Cone type is required</span>
                 </label>
                 <label for="Sugar-Cone">
                     <input type="radio" id="Sugar-Cone" name="cone" value="Sugar-Cone">
@@ -66,29 +56,28 @@
                     <input type="radio" id="Cup" name="cone" value="Cup">
                     Cup
                 </label>
+
                 <label>Toppings</label>
-                <label for="Sprinklers">
-                    <input type="checkbox" id="Sprinklers" name="Toppings[]" value="Sprinklers">Sprinklers
+                <label for="Sprinkles">
+                    <input type="checkbox" id="Sprinkles" name="toppings[]" value="Sprinkles">Sprinkles
                 </label>
                 <label for="Nuts">
-                    <input type="checkbox" id="Nuts" name="Toppings[]" value="Nuts">Nuts
+                    <input type="checkbox" id="Nuts" name="toppings[]" value="Nuts">Nuts
                 </label>
                 <label for="Cherry">
-                    <input type="checkbox" id="Cherry" name="Toppings[]" value="Cherry">Cherry
+                    <input type="checkbox" id="Cherry" name="toppings[]" value="Cherry">Cherry
                 </label>
-                <label for="Whiped-Cream">
-                    <input type="checkbox" id="Whiped-Cream" name="Toppings[]" value="Whiped-Cream">Whiped-Cream
+                <label for="Whipped-Cream">
+                    <input type="checkbox" id="Whipped-Cream" name="toppings[]" value="Whipped-Cream">Whipped Cream
                 </label>
 
-                <!-- comment -->
                 <label for="comments">Additional Comments:</label>
                 <textarea rows="5" id="comments" name="comments"></textarea>
             </fieldset>
-            
-            <!-- Submit -->
+
             <button type="submit" id="submit-button">Submit Order</button>
         </form>
     </main>
-        
+    <a href="/admin">View All Orders</a>
 </body>
 </html>
