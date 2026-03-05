@@ -1,12 +1,23 @@
+import mysql2 from 'mysql2';
+import dotenv from 'dotenv';
+
 // Import the express module
 
 import express from 'express';
+const app = express();
 
+dotenv.config();
 
 // Create an instance of an Express application
 
-const app = express();
 
+const pool = mysql2.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+}).promise();
 
 // Define the port number where our server will listen
 
@@ -46,6 +57,16 @@ const {
   cone, 
   comments
 } = req.body;
+
+app.get('/db-test', async(req,res)=>{
+  try{
+    const orders = await pool.query('SELECT * FROM orders');
+    res.send(orders[0]);
+  }catch (err){
+    console.error('Database error:', err);
+    res.status(500).send('Database error: ' + err.message);
+  }
+});
 
 
 let toppings = req.body['toppings[]'] || []; //topping as an array
