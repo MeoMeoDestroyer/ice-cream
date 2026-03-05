@@ -39,6 +39,34 @@ app.get('/confirm', (req, res) => {
   res.render('confirm');
 });
 
+app.post('/confirm', async (req, res)=>{
+  try{
+    const order = req.body;
+
+    console.log('New order submitted:', order);
+
+    order.toppings = Array.isArray(order.toppings) ? order.toppings.join(", ") : "";
+
+    const sql = `INSERT INTO orders(customer, email, flavor, cone, toppings) VALUES(?, ?, ?, ?, ?);`;
+
+    const params=[
+      order.customer,
+      order.email,
+      order.flavor,
+      order.cone,
+      order.toppings
+    ];
+
+    const result = await pool.execute(sql,params);
+    console.log('Order saved with ID:', result[0].insertId);
+
+    res.render('confirmation', {order});
+  }catch (err){
+    console.error('Error saving order:', err);
+    res.status(500).send('Sorry, there was an error processing your order. Please try again.');
+  }
+});
+
 // FIX 4: moved app.get('/db-test') OUTSIDE of app.post('/orders')
 app.get('/db-test', async (req, res) => {
   try {
