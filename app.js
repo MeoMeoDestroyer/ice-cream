@@ -69,6 +69,21 @@ app.post('/orders', (req, res) => {
   res.render('confirm', { order });
 });
 
+//display all order
+app.get('/admin', async (req, res) =>{
+  try {
+    //fetch all order from database
+    const [orders] = await pool.query('SELECT * FROM orders
+      ORDER BY timestamp DESC');
+      // render
+
+      res.render('admin', {orders});
+  } catch (err) {
+    console.error('Database error:' err);
+    res.status(500).send('Error loading orders: ' + err.message);
+  }
+});
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
