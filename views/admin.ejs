@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.css">
 </head>
 <body>
-    
-    <body>
     <h1>Order Summary</h1>
     <table id="order-table" class="display">
         <thead>
@@ -24,19 +22,17 @@
                 <th>Flavors</th>
                 <th>Cone</th>
                 <th>Toppings</th>
-                <th>Comment</th>
                 <th>Timestamp</th>
             </tr>
         </thead>
         <tbody>
             <% orders.forEach(order => { %>
                 <tr>
-                    <td><%= order.name %></td>
+                    <td><%= order.customer %></td>
                     <td><%= order.email %></td>
-                    <td><%= order.flavors.join(', ') %></td>
+                    <td><%= order.flavors %></td>
                     <td><%= order.cone %></td>
-                    <td><%= order.toppings.join(', ') %></td>
-                    <td><%= order.comment %></td>
+                    <td><%= order.toppings %></td>
                     <td><%= order.timestamp.toLocaleString() %></td>
                 </tr>
             <% }) %>

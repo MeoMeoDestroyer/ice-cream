@@ -12,18 +12,17 @@
     <h2>Your ice cream order has been confirmed.</h2>
 
     <h3>Personal Information</h3>
-    <p>Name: <%= order.name %></p>
+    <p>Name: <%= order.customer %></p>
     <p>Email: <%= order.email %></p>
 
     <h3>Order Details</h3>
-    <p>Flavor: <%= order.flavors.join(', ') %></p>
+    <p>Flavor: <%= order.flavors %></p>
     <p>Cone: <%= order.cone %></p>
-    <p>Toppings: <%= order.toppings.length ? order.toppings.join(', ') : 'None' %></p>
+    <p>Toppings: <%= order.toppings || 'None' %></p>
 
     <h3>Additional Comments</h3>
     <p><%= order.comment || 'No comments provided.' %></p>
 
-    <a href="/print">Print Order</a>
     <a href="/">Place Another Order</a>
     <a href="/admin">View All Orders</a>
 </body>
