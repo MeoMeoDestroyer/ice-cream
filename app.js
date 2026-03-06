@@ -2,7 +2,7 @@ import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
 import express from 'express';
 
-// PLEASE READ: the web is 64.23.137.40:3006 
+// PLEASE READ: the web is 64.23.137.40:3006 - alr submit with your name, no need to submit
 
 dotenv.config();
 
